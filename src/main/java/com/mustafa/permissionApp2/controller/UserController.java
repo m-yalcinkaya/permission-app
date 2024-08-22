@@ -1,7 +1,7 @@
 package com.mustafa.permissionApp2.controller;
 
+import com.mustafa.permissionApp2.dto.UserDto;
 import com.mustafa.permissionApp2.services.user.IUserService;
-import com.mustafa.permissionApp2.jpa.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,23 +18,22 @@ public class UserController {
     private IUserService userService;
 
     @PostMapping("/add")
-    public void addUser(User user) {
-        userService.addUser(user);
+    public void addUser(UserDto userDto) {
+        userService.addUser(userDto);
     }
 
-
     @PostMapping("/delete")
-    public void deleteUser(User user) {
-        userService.deleteUser(user.getId());
+    public void deleteUser(UserDto userDto) {
+        userService.deleteUser(userDto.getId());
     }
 
     @GetMapping()
-    public List<User> getAllUsers() {
+    public List<UserDto> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable int id) {
+    public UserDto getUserById(@PathVariable int id) {
         return userService.getUser(id);
     }
 

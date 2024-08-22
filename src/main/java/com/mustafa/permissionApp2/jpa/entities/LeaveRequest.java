@@ -12,6 +12,8 @@ import java.sql.Date;
 @Table(name = "leave_request")
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class LeaveRequest {
 
     @Id
@@ -20,18 +22,18 @@ public class LeaveRequest {
     private int id;
 
     @Column(name = "user_id")
-    @Getter private int userId;
+    private int userId;
 
     @Column(name = "start_date")
-    @Getter @Setter private Date startDate;
+    private Date startDate;
 
     @Column(name = "end_date")
-    @Getter @Setter private Date endDate;
+    private Date endDate;
 
     @Column(name = "status")
-    @Getter @Setter private String status;
+    private String status;
 
     @Column(name = "description")
-    @Getter @Setter private String description;
+    private String description;
 
 }

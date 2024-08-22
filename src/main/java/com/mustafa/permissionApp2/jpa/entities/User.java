@@ -11,29 +11,31 @@ import lombok.Setter;
 @Table(name = "platformuser")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class User {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter private int id;
+    private int id;
 
     @Column(name = "name")
-    @Getter @Setter private String name;
+    private String name;
 
     @Column(name = "surname")
-    @Getter @Setter private String surname;
+    private String surname;
 
     @Column(name = "username")
-    @Getter @Setter private String username;
+    private String username;
 
     @Column(name = "password")
-    @Getter @Setter private String password;
+    private String password;
 
     @Column(name = "role")
-    @Getter @Setter private String role;
+    private String role;
 
     @Column(name = "email")
-    @Getter @Setter private String email;
+    private String email;
 
 }

@@ -5,7 +5,7 @@ import com.mustafa.permissionApp2.jpa.entities.User;
 
 import java.util.List;
 
-public interface IUserDal {
+public interface IUserDao {
     public void addUser(User user);
     public void deleteUser(int id);
     public List<User> getAllUsers();

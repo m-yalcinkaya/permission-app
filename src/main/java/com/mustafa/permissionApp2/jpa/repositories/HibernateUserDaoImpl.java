@@ -14,19 +14,18 @@ import java.util.List;
 @Repository
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 @NoArgsConstructor
-public class HibernateUserDaoImpl implements IUserDal {
+@Transactional
+public class HibernateUserDaoImpl implements IUserDao {
 
     private EntityManager entityManager;
 
     @Override
-    @Transactional
     public void addUser(User user) {
         Session session = entityManager.unwrap(Session.class);
         session.persist(user);
     }
 
     @Override
-    @Transactional
     public void deleteUser(int id) {
         Session session = entityManager.unwrap(Session.class);
         User user = session.get(User.class, id);
@@ -35,14 +34,12 @@ public class HibernateUserDaoImpl implements IUserDal {
 
 
     @Override
-    @Transactional
     public List<User> getAllUsers() {
         Session session = entityManager.unwrap(Session.class);
         return session.createQuery("from User", User.class).getResultList();
     }
 
     @Override
-    @Transactional
     public User getUser(int id) {
         Session session = entityManager.unwrap(Session.class);
         return session.get(User.class, id);

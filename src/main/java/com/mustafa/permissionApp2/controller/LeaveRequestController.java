@@ -1,7 +1,7 @@
 package com.mustafa.permissionApp2.controller;
 
+import com.mustafa.permissionApp2.dto.LeaveRequestDto;
 import com.mustafa.permissionApp2.services.leaverequest.ILeaveRequestService;
-import com.mustafa.permissionApp2.jpa.entities.LeaveRequest;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +21,8 @@ public class LeaveRequestController {
     }
 
     @PostMapping("/add")
-    public void addRequest(LeaveRequest leaveRequest){
-        leaveRequestService.addRequest(leaveRequest);
+    public void addRequest(LeaveRequestDto leaveRequestDto){
+        leaveRequestService.addRequest(leaveRequestDto);
     }
 
     @GetMapping()
@@ -31,7 +31,7 @@ public class LeaveRequestController {
     }
 
     @GetMapping("/{id}")
-    public LeaveRequest getRequest(@PathVariable int id){
+    public LeaveRequestDto getRequest(@PathVariable int id){
         return leaveRequestService.getRequest(id);
     }
 

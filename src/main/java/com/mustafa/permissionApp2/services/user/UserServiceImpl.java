@@ -1,43 +1,51 @@
 package com.mustafa.permissionApp2.services.user;
 
-import com.mustafa.permissionApp2.jpa.repositories.IUserDal;
+import com.mustafa.permissionApp2.dto.UserDto;
 import com.mustafa.permissionApp2.jpa.entities.User;
+import com.mustafa.permissionApp2.jpa.repositories.IUserDao;
+import com.mustafa.permissionApp2.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+@Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 @NoArgsConstructor
+@Transactional
 public class UserServiceImpl implements IUserService {
 
-    private IUserDal userDal;
+    private IUserDao userDao;
 
     @Override
-    @Transactional
-    public void addUser(User user) {
-        userDal.addUser(user);
+    public void addUser(UserDto userDto) {
+        User user = UserMapper.toUser(userDto);
+        userDao.addUser(user);
     }
 
     @Override
-    @Transactional
     public void deleteUser(int id) {
-        userDal.deleteUser(id);
+        userDao.deleteUser(id);
     }
 
     @Override
-    @Transactional
-    public List<User> getAllUsers() {
-        return userDal.getAllUsers();
+    public List<UserDto> getAllUsers() {
+        List<User> users = userDao.getAllUsers();
+        List<UserDto> userDtos = new ArrayList<>();
+        for (User user : users) {
+            userDtos.add(UserMapper.toUserDto(user));
+        }
+        return userDtos;
     }
 
     @Override
-    @Transactional
-    public User getUser(int id) {
-        return userDal.getUser(id);
+    public UserDto getUser(int id) {
+        User user = userDao.getUser(id);
+        return UserMapper.toUserDto(user);
     }
 }
+

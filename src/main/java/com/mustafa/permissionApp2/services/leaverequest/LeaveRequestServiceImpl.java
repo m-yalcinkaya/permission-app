@@ -1,16 +1,18 @@
 package com.mustafa.permissionApp2.services.leaverequest;
 
+import com.mustafa.permissionApp2.mapper.LeaveRequestMapper;
 import com.mustafa.permissionApp2.jpa.repositories.ILeaveRequestDao;
 import com.mustafa.permissionApp2.jpa.entities.LeaveRequest;
+import com.mustafa.permissionApp2.dto.LeaveRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+@Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 @NoArgsConstructor
 public class LeaveRequestServiceImpl implements ILeaveRequestService{
@@ -18,26 +20,29 @@ public class LeaveRequestServiceImpl implements ILeaveRequestService{
     private ILeaveRequestDao leaveRequest;
 
     @Override
-    @Transactional
     public void cancelRequest(int id) {
         leaveRequest.cancelRequest(id);
     }
 
     @Override
-    @Transactional
-    public void addRequest(LeaveRequest request) {
+    public void addRequest(LeaveRequestDto requestDto) {
+        LeaveRequest request = LeaveRequestMapper.toLeaveRequest(requestDto);
         leaveRequest.addRequest(request);
     }
 
     @Override
-    @Transactional
-    public List<LeaveRequest> getAllRequests() {
-        return leaveRequest.getAllRequests();
+    public List<LeaveRequestDto> getAllRequests() {
+        List<LeaveRequest> leaveRequests = leaveRequest.getAllRequests();
+        List<LeaveRequestDto> leaveRequestDtos = new ArrayList<>();
+        for (LeaveRequest leaveRequest : leaveRequests) {
+            leaveRequestDtos.add(LeaveRequestMapper.toLeaveRequestDto(leaveRequest));
+        }
+        return leaveRequestDtos;
     }
 
     @Override
-    @Transactional
-    public LeaveRequest getRequest(int id) {
-        return leaveRequest.getRequest(id);
+    public LeaveRequestDto getRequest(int id) {
+        LeaveRequest leaveRequest1 = leaveRequest.getRequest(id);
+        return LeaveRequestMapper.toLeaveRequestDto(leaveRequest1);
     }
 }
