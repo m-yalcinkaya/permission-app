@@ -21,18 +21,18 @@ public class LeaveRequestServiceImpl implements ILeaveRequestService{
 
     @Override
     public void cancelRequest(int id) {
-        leaveRequest.cancelRequest(id);
+        leaveRequest.deleteById(id);
     }
 
     @Override
     public void addRequest(LeaveRequestDto requestDto) {
         LeaveRequest request = LeaveRequestMapper.toLeaveRequest(requestDto);
-        leaveRequest.addRequest(request);
+        leaveRequest.save(request);
     }
 
     @Override
     public List<LeaveRequestDto> getAllRequests() {
-        List<LeaveRequest> leaveRequests = leaveRequest.getAllRequests();
+        List<LeaveRequest> leaveRequests = leaveRequest.findAll();
         List<LeaveRequestDto> leaveRequestDtos = new ArrayList<>();
         for (LeaveRequest leaveRequest : leaveRequests) {
             leaveRequestDtos.add(LeaveRequestMapper.toLeaveRequestDto(leaveRequest));
@@ -42,7 +42,7 @@ public class LeaveRequestServiceImpl implements ILeaveRequestService{
 
     @Override
     public LeaveRequestDto getRequest(int id) {
-        LeaveRequest leaveRequest1 = leaveRequest.getRequest(id);
+        LeaveRequest leaveRequest1 = leaveRequest.getReferenceById(id);
         return LeaveRequestMapper.toLeaveRequestDto(leaveRequest1);
     }
 }

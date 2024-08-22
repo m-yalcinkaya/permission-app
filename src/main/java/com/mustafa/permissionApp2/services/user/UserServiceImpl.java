@@ -24,17 +24,17 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void addUser(UserDto userDto) {
         User user = UserMapper.toUser(userDto);
-        userDao.addUser(user);
+        userDao.save(user);
     }
 
     @Override
     public void deleteUser(int id) {
-        userDao.deleteUser(id);
+        userDao.deleteById(id);
     }
 
     @Override
     public List<UserDto> getAllUsers() {
-        List<User> users = userDao.getAllUsers();
+        List<User> users = userDao.findAll();
         List<UserDto> userDtos = new ArrayList<>();
         for (User user : users) {
             userDtos.add(UserMapper.toUserDto(user));
@@ -44,7 +44,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDto getUser(int id) {
-        User user = userDao.getUser(id);
+        User user = userDao.getReferenceById(id);
         return UserMapper.toUserDto(user);
     }
 }
