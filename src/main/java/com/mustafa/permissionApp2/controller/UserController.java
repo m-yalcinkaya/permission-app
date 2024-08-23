@@ -4,41 +4,42 @@ import com.mustafa.permissionApp2.dto.UserDto;
 import com.mustafa.permissionApp2.services.user.IUserService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping()
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 @NoArgsConstructor
 public class UserController {
 
     private IUserService userService;
 
-    @PostMapping("/add")
+    @PostMapping("users/api/add")
     public ResponseEntity<Void> addUser(@RequestParam UserDto userDto) {
         userService.addUser(userDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/users/api/delete")
     public ResponseEntity<Void> deleteUser(UserDto userDto) {
         userService.deleteUser(userDto.getId());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping
+    @GetMapping("users/api")
     public ResponseEntity<List<UserDto>> getAllUsers() {
         List<UserDto> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("users/api/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable int id) {
         UserDto user = userService.getUser(id);
         if (user != null) {
@@ -48,4 +49,16 @@ public class UserController {
         }
     }
 
+    @GetMapping("/viewUsers")
+    public ModelAndView viewAllUsers() {
+        List<UserDto> users = userService.getAllUsers();
+        ModelAndView mav = new ModelAndView("user-list");  // View adı
+        mav.addObject("users", users);  // Model verisi
+        return mav;
+    }
+
+    @GetMapping("/home")
+    public ModelAndView home() {
+        return new ModelAndView("home");  // View adı
+    }
 }

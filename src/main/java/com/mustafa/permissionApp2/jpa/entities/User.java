@@ -33,7 +33,7 @@ public class User {
     private String password;
 
     @Column(name = "role")
-    private String role;
+    private int role;
 
     @Column(name = "email")
     private String email;
