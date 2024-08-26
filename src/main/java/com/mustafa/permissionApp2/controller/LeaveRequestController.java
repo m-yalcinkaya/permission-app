@@ -53,9 +53,28 @@ public class LeaveRequestController {
     @GetMapping("requestLeaves")
     public ModelAndView viewRequestLeaves(){
         List<LeaveRequestDto> leaveRequestDtos =  leaveRequestService.getAllRequests();
+        Map<Integer, String> userNames = new HashMap<>();
+        Map<Integer, String> userEmails = new HashMap<>();
+        Map<Integer, String> userRoles = new HashMap<>();
+        Map<Integer, String> statusValues = new HashMap<>();
 
+        for(LeaveRequestDto leaveRequestDto : leaveRequestDtos){
+            UserDto user = userService.getUser(leaveRequestDto.getUserId());
+            userNames.put(leaveRequestDto.getId(), user.getName() +" "+ user.getSurname());
+            userEmails.put(leaveRequestDto.getId(), user.getEmail());
+            String status = leaveRequestDto.getStatus() == 1 ? "Pending" : leaveRequestDto.getStatus() == 2 ? "Approved" : "rejected";
+            statusValues.put(leaveRequestDto.getId(), status);
+            if(user.getRole() == 1)
+                userRoles.put(leaveRequestDto.getId(), "Admin");
+            else
+                userRoles.put(leaveRequestDto.getId(), "User");
+        }
        ModelAndView modelAndView = new ModelAndView("request-leave");
         modelAndView.addObject("leaveRequestDtos", leaveRequestDtos);
+        modelAndView.addObject("userNames", userNames);
+        modelAndView.addObject("userEmails", userEmails);
+        modelAndView.addObject("userRoles", userRoles);
+        modelAndView.addObject("statusValues", statusValues);
 
         return modelAndView;
     }

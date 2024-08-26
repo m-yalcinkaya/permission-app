@@ -17,7 +17,7 @@ public class LeaveRequestDto {
     private int userId;
     private Date startDate;
     private Date endDate;
-    private String status;
+    private int status;
     private String description;
 
 }

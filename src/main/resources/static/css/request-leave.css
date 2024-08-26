@@ -1,0 +1,300 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #4CAF50;
+    color: #fff;
+    min-height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+    margin-top: 0;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 15px 0;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.sidebar ul li a:hover {
+    background-color: #45a049;
+}
+
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+    flex: 1;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    background-color: #4CAF50;
+    color: #fff;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+h1 {
+    margin: 0;
+    text-align: center;
+}
+
+.user-info {
+    position: absolute;
+    right: 50px;
+    margin-right: 50px;
+}
+
+.form-section input, .form-section button {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.form-section button {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.form-section button:hover {
+    background-color: #45a049;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+.logout-form button {
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    margin-top: 5px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.logout-form button:hover {
+    background-color: #e5533b;
+    transform: translateY(-2px);
+}
+
+.logout-form button:active {
+    background-color: #d94c36;
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+.date-group label {
+    display: block;
+    margin-bottom: 5px; /* Etiketler arasına boşluk ekler */
+}
+
+.date-group input {
+    display: block;
+    margin-bottom: 10px; /* Input alanları arasına boşluk ekler */
+}
+
+.modal {
+    display: none; /* Başlangıçta gizli */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px); /* Arka planı bulanıklaştırır */
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto; /* Ekranın ortasında yerleştirilir */
+    padding: 20px;
+    border: 1px solid #ddd;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hafif gölgelendirme */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #333;
+    text-decoration: none;
+}
+
+.view-description-btn {
+    margin: 0; /* Sol ve sağdaki boşlukları kaldırır */
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.view-description-btn:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
+.view-description-btn:active {
+    background-color: #3e8e41;
+    transform: translateY(0);
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    color: #4CAF50;
+    font-size: 22px;
+}
+
+.modal-content label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.modal-content input,
+.modal-content select,
+.modal-content textarea {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: calc(100% - 22px); /* Border'ı da göz önünde bulundurarak genişliği ayarlamak için */
+}
+
+.modal-content textarea {
+    resize: vertical; /* Kullanıcıların sadece dikey olarak genişletmesini sağlar */
+}
+
+.description-cell {
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.modal-content button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.modal-content button:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
+.modal-content button:active {
+    background-color: #3e8e41;
+    transform: translateY(0);
+}
+
+/* Açıklama Modal Stilleri */
+#descriptionModal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px); /* Arka planı bulanıklaştırır */
+}
+
+#descriptionModal .modal-content {
+    background-color: #fff;
+    margin: 15% auto; /* Ekranın ortasında yerleştirilir */
+    padding: 20px;
+    border: 1px solid #ddd;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hafif gölgelendirme */
+}
+
+#descriptionModal .close-description {
+    color: #aaa;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#descriptionModal .close-description:hover,
+#descriptionModal .close-description:focus {
+    color: #333;
+    text-decoration: none;
+}

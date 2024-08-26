@@ -31,7 +31,7 @@ public class LeaveRequest {
     private Date endDate;
 
     @Column(name = "status")
-    private String status;
+    private int status;
 
     @Column(name = "description")
     private String description;
