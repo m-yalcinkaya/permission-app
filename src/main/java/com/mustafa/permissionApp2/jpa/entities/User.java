@@ -35,6 +35,10 @@ public class User {
     @Column(name = "role")
     private int role;
 
+    @Column(name = "remainingDay")
+    private int remainingDay = 50;
+
+
     @Column(name = "email")
     private String email;
 

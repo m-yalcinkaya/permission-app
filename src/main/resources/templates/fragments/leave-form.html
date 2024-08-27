@@ -1,0 +1,30 @@
+<div th:fragment="leave-form">
+    <!-- Modal Structure -->
+    <div id="leaveModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Request Leave</h2>
+            <form th:action="@{/requests/add}" method="post">
+                <label for="userlist">Select User:</label>
+                <select id="userlist" name="userId" required>
+                    <option value="" disabled selected>Select User</option>
+                    <option th:each="user : ${userDtos}"
+                            th:value="${user.id}"
+                            th:text="${user.id + ' ' + user.name + ' ' + user.surname + ' ' + userRoles[user.id]}">
+                    </option>
+                </select>
+
+                <label for="startDate">Start Date:</label>
+                <input type="date" id="startDate" name="startDate" required>
+
+                <label for="endDate">End Date:</label>
+                <input type="date" id="endDate" name="endDate" required>
+
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" rows="4" required></textarea>
+
+                <button type="submit">Submit Leave Request</button>
+            </form>
+        </div>
+    </div>
+</div>

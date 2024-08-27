@@ -18,6 +18,7 @@ public class UserDto {
     private String username;
     private String password;
     private int role;
+    private int remainingDay = 50;
     private String email;
 
 }

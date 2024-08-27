@@ -11,17 +11,8 @@
 
 </head>
 <body>
-<!-- Sidebar Menu -->
-<div class="sidebar">
-    <h2>Menu</h2>
-    <ul>
-        <li><a href="/home">Home</a></li>
-        <li><a href="/requestLeaves">Request Leave</a></li>
-        <li><a href="/requestLeaves">Today's Leave</a></li>
-        <li><a href="/viewUsers">Manage Users</a></li>
-    </ul>
-</div>
 
+<div th:insert="~{fragments/sidebar :: sidebar}"></div>
 <!-- Main Content -->
 <div class="main-content">
     <div class="header">
@@ -56,6 +47,8 @@
                 <th>Leave End</th>
                 <th>Status</th>
                 <th>Description</th>
+                <th></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -103,44 +96,10 @@
 </div>
 
 
-<!-- Açıklama Modal Yapısı -->
-<div id="descriptionModal" class="modal">
-    <div class="modal-content">
-        <span class="close-description">&times;</span>
-        <h2>Description</h2>
-        <p id="descriptionText"></p>
-    </div>
-</div>
+<div th:insert="~{fragments/description-modal :: description-modal}"></div>
 
+<div th:insert="~{fragments/description-modal :: description-modal}"></div>
 
-<!-- Modal Structure -->
-<div id="leaveModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Request Leave</h2>
-        <form th:action="@{/requests/add}" method="post">
-            <label for="userlist">Select User:</label>
-            <select id="userlist" name="userId" required>
-                <option value="" disabled selected>Select User</option>
-                <option th:each="user : ${userDtos}"
-                        th:value="${user.id}"
-                        th:text="${user.id + ' ' + user.name + ' ' + user.surname + ' ' + userRoles[user.id]}">
-                </option>
-            </select>
-
-            <label for="startDate">Start Date:</label>
-            <input type="date" id="startDate" name="startDate" required>
-
-            <label for="endDate">End Date:</label>
-            <input type="date" id="endDate" name="endDate" required>
-
-            <label for="description">Description:</label>
-            <textarea id="description" name="description" rows="4" required></textarea>
-
-            <button type="submit">Submit Leave Request</button>
-        </form>
-    </div>
-</div>
 <script th:src="@{/js/request-leave.js}"></script>
 </body>
 </html>
