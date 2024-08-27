@@ -2,6 +2,7 @@ package com.mustafa.permissionApp2.controller;
 
 import com.mustafa.permissionApp2.dto.LeaveRequestDto;
 import com.mustafa.permissionApp2.dto.UserDto;
+import com.mustafa.permissionApp2.jpa.entities.User;
 import com.mustafa.permissionApp2.services.leaverequest.ILeaveRequestService;
 
 import com.mustafa.permissionApp2.services.user.IUserService;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,10 +35,11 @@ public class LeaveRequestController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("requests/add")
-    public ResponseEntity<Void> addRequest(LeaveRequestDto leaveRequestDto){
+
+    @PostMapping("/requests/add")
+    public RedirectView addRequest(@ModelAttribute LeaveRequestDto leaveRequestDto) {
         leaveRequestService.addRequest(leaveRequestDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new RedirectView("/requestLeaves");
     }
 
     @GetMapping("requests")
@@ -50,9 +53,17 @@ public class LeaveRequestController {
         return leaveRequestService.getRequest(id);
     }
 
+    @PostMapping("/updateLeaveStatus")
+    public ModelAndView updateLeaveStatus(@RequestParam("leaveId") int leaveId,
+                                    @RequestParam("status") int status) {
+        leaveRequestService.updateLeaveStatus(leaveId, status);
+        return viewRequestLeaves();
+    }
+
     @GetMapping("requestLeaves")
     public ModelAndView viewRequestLeaves(){
         List<LeaveRequestDto> leaveRequestDtos =  leaveRequestService.getAllRequests();
+        List<UserDto> userDtos = userService.getAllUsers();
         Map<Integer, String> userNames = new HashMap<>();
         Map<Integer, String> userEmails = new HashMap<>();
         Map<Integer, String> userRoles = new HashMap<>();
@@ -62,7 +73,7 @@ public class LeaveRequestController {
             UserDto user = userService.getUser(leaveRequestDto.getUserId());
             userNames.put(leaveRequestDto.getId(), user.getName() +" "+ user.getSurname());
             userEmails.put(leaveRequestDto.getId(), user.getEmail());
-            String status = leaveRequestDto.getStatus() == 1 ? "Pending" : leaveRequestDto.getStatus() == 2 ? "Approved" : "rejected";
+            String status = leaveRequestDto.getStatus() == 1 ? "Pending" : leaveRequestDto.getStatus() == 2 ? "Approved" : leaveRequestDto.getStatus() == 3 ? "Rejected" : "Canceled";
             statusValues.put(leaveRequestDto.getId(), status);
             if(user.getRole() == 1)
                 userRoles.put(leaveRequestDto.getId(), "Admin");
@@ -75,6 +86,7 @@ public class LeaveRequestController {
         modelAndView.addObject("userEmails", userEmails);
         modelAndView.addObject("userRoles", userRoles);
         modelAndView.addObject("statusValues", statusValues);
+        modelAndView.addObject("userDtos", userDtos);
 
         return modelAndView;
     }

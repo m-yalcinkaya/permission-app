@@ -10,4 +10,5 @@ public interface ILeaveRequestService {
     public void addRequest(LeaveRequestDto requestDto);
     public List<LeaveRequestDto> getAllRequests();
     public LeaveRequestDto getRequest(int id);
+    public void updateLeaveStatus(int id, int status);
 }

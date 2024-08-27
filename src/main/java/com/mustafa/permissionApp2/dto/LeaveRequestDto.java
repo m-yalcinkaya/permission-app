@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+
+import java.sql.Date;
+
 
 @Setter
 @Getter
@@ -17,7 +19,8 @@ public class LeaveRequestDto {
     private int userId;
     private Date startDate;
     private Date endDate;
-    private int status;
+    private int status = 1;
     private String description;
+
 
 }
