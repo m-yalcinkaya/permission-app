@@ -12,7 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
+import static com.mustafa.permissionApp2.utils.PasswordGenerator.generatePassword;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -24,6 +25,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void addUser(UserDto userDto) {
+        userDto.setPassword(generatePassword(8));
         User user = UserMapper.toUser(userDto);
         userDao.save(user);
     }

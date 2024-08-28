@@ -35,6 +35,12 @@
                     Add Leave
                 </button>
             </span>
+            <span style="float: right;">
+                <button id="todayLeavesBtn"
+                        style="background-color: #008CBA; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 14px;">
+                    Today's Leaves
+                </button>
+            </span>
         </h2>
         <table>
             <thead>
@@ -96,9 +102,42 @@
 </div>
 
 
-<div th:insert="~{fragments/description-modal :: description-modal}"></div>
+<div th:insert="~{fragments/leave-form :: leave-form}"></div>
 
 <div th:insert="~{fragments/description-modal :: description-modal}"></div>
+
+<!-- Modal Structure -->
+<div id="userModal" class="userModal">
+    <div class="modal-content-user">
+        <span class="close-user">&times;</span>
+        <h2>Today's Leaves</h2>
+        <form>
+            <table>
+               <thead>
+                   <tr>
+                       <th>Role</th>
+                       <th>Name</th>
+                       <th>Email</th>
+                       <th>Leave Start</th>
+                       <th>Leave End</th>
+                   </tr>
+               </thead>
+                <tbody>
+                    <tr th:each="leave : ${leaveRequestDtos}">
+                        <td th:text="${userRoles[leave.getId()]}"></td>
+                        <td th:text="${userNames[leave.getId()]}"></td>
+                        <td th:text="${userEmails[leave.getId()]}"></td>
+                        <td th:text="${leave.getStartDate()}"></td>
+                        <td th:text="${leave.getEndDate()}"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+           <button id="okButton" type="button">Ok</button>
+        </form>
+    </div>
+</div>
+
 
 <script th:src="@{/js/request-leave.js}"></script>
 </body>

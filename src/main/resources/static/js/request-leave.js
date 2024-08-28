@@ -1,34 +1,65 @@
 // Get the modal
 var modal = document.getElementById("leaveModal");
+var userModal = document.getElementById("userModal"); // Burası "leaveModal" değil "userModal" olmalı
+
 
 // Get the button that opens the modal
 var btn = document.getElementById("addLeaveBtn");
+var todaybtn = document.getElementById("todayLeavesBtn");
+
+var okButton = document.getElementById("okButton");
+
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
+var userClose = document.getElementsByClassName("close-user")[0];
+
 
 // When the user clicks the button, open the modal
 btn.onclick = function () {
     modal.style.display = "block";
-    var modalContent = modal.querySelector(".modal-content");
+    let modalContent = modal.querySelector(".modal-content");
     modalContent.classList.add("show");
 }
+
+todaybtn.onclick = function () {
+    userModal.style.display = "block"; // Burada userModal açılıyor
+    let modalContent = userModal.querySelector(".modal-content-user"); // Doğru modal content sınıfını seç
+    modalContent.classList.add("show");
+}
+
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function () {
     modal.style.display = "none";
-    var modalContent = modal.querySelector(".modal-content");
+    let modalContent = modal.querySelector(".modal-content");
     modalContent.classList.remove("show");
 }
 
+userClose.onclick = function () {
+    userModal.style.display = "none";
+    let modalContent = userModal.querySelector(".modal-content-user");
+    modalContent.classList.remove("show");
+}
+
+okButton.onclick = function () {
+    userModal.style.display = "none";
+    let modalContent = userModal.querySelector(".modal-content-user");
+    modalContent.classList.remove("show");
+}
 
 window.onclick = function (event) {
     if (event.target === modal) {
         modal.style.display = "none";
-        var modalContent = modal.querySelector(".modal-content");
+        let modalContent = modal.querySelector(".modal-content");
+        modalContent.classList.remove("show");
+    } else if (event.target === userModal) { // Burada userModal kapatma kontrolü
+        userModal.style.display = "none";
+        let modalContent = userModal.querySelector(".modal-content-user");
         modalContent.classList.remove("show");
     }
 }
+
 
 
 // Get the modal

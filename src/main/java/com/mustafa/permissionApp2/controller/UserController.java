@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -21,9 +22,9 @@ public class UserController {
     private IUserService userService;
 
     @PostMapping("users/api/add")
-    public ResponseEntity<Void> addUser(@RequestParam UserDto userDto) {
+    public RedirectView addUser(@ModelAttribute UserDto userDto) {
         userService.addUser(userDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new RedirectView("/viewUsers");
     }
 
     @DeleteMapping("/users/api/delete")
