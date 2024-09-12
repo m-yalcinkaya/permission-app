@@ -51,7 +51,7 @@
                 <td th:text="${user.getEmail()}"></td>
                 <td>
                     <span th:if="${user.role == 1}" th:text="'Admin'"></span>
-                    <span th:if="${user.role == 2}" th:text="'User'"></span>
+                    <span th:if="${user.role == 2}" th:text="'Staff'"></span>
                 </td>
                 <td th:text="${user.getRemainingDay()}"></td>
             </tr>
@@ -71,7 +71,7 @@
             <select id="roleList" name="role" required>
                 <option value="" disabled selected>Select User</option>
                 <option value="1" th:text="Admin"></option>
-                <option value="2" th:text="User"></option>
+                <option value="2" th:text="Staff"></option>
             </select>
 
             <label for="name">Name</label>

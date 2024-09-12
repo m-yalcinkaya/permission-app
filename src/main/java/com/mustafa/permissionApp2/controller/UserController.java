@@ -57,7 +57,7 @@ public class UserController {
         return mav;
     }
 
-    @GetMapping("/home")
+    @GetMapping()
     public ModelAndView home() {
         return new ModelAndView("home");  // View adı
     }

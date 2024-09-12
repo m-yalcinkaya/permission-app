@@ -10,7 +10,7 @@
                     <option value="" disabled selected>Select User</option>
                     <option th:each="user : ${userDtos}"
                             th:value="${user.id}"
-                            th:text="${user.id + ' ' + user.name + ' ' + user.surname + ' ' + userRoles[user.id]}">
+                            th:text="${user.id + ' ' + user.name + ' ' + user.surname + ' ' + (user.role == 1 ? 'Admin' : 'Staff')}">
                     </option>
                 </select>
 

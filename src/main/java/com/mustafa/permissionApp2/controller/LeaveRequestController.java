@@ -78,7 +78,7 @@ public class LeaveRequestController {
             if(user.getRole() == 1)
                 userRoles.put(leaveRequestDto.getId(), "Admin");
             else
-                userRoles.put(leaveRequestDto.getId(), "User");
+                userRoles.put(leaveRequestDto.getId(), "Staff");
         }
        ModelAndView modelAndView = new ModelAndView("request-leave");
         modelAndView.addObject("leaveRequestDtos", leaveRequestDtos);
