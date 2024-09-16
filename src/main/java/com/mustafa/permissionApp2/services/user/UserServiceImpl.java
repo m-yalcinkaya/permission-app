@@ -1,16 +1,13 @@
 package com.mustafa.permissionApp2.services.user;
 
-import com.mustafa.permissionApp2.dto.UserDto;
 import com.mustafa.permissionApp2.jpa.entities.User;
 import com.mustafa.permissionApp2.jpa.repositories.IUserDao;
-import com.mustafa.permissionApp2.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.mustafa.permissionApp2.utils.PasswordGenerator.generatePassword;
@@ -24,9 +21,8 @@ public class UserServiceImpl implements IUserService {
     private IUserDao userDao;
 
     @Override
-    public void addUser(UserDto userDto) {
-        userDto.setPassword(generatePassword(8));
-        User user = UserMapper.toUser(userDto);
+    public void addUser(User user) {
+        user.setPassword(generatePassword(8));
         userDao.save(user);
     }
 
@@ -36,19 +32,15 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public List<UserDto> getAllUsers() {
+    public List<User> getAllUsers() {
         List<User> users = userDao.findAll();
-        List<UserDto> userDtos = new ArrayList<>();
-        for (User user : users) {
-            userDtos.add(UserMapper.toUserDto(user));
-        }
-        return userDtos;
+        return users;
     }
 
     @Override
-    public UserDto getUser(int id) {
+    public User getUser(int id) {
         User user = userDao.getReferenceById(id);
-        return UserMapper.toUserDto(user);
+        return user;
     }
 }
 

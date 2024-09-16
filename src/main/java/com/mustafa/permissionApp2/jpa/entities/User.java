@@ -16,26 +16,13 @@ import lombok.Setter;
 public class User {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @Column(name = "name")
     private String name;
-
-    @Column(name = "surname")
     private String surname;
-
-    @Column(name = "password")
     private String password;
-
-    @Column(name = "role")
     private int role;
-
-    @Column(name = "remainingDay")
     private int remainingDay = 50;
-
-    @Column(name = "email")
     private String email;
 
 }

@@ -18,23 +18,12 @@ import java.sql.Date;
 public class LeaveRequest {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @Column(name = "user_id")
     private int userId;
-
-    @Column(name = "start_date")
     private Date startDate;
-
-    @Column(name = "end_date")
     private Date endDate;
-
-    @Column(name = "status")
     private int status;
-
-    @Column(name = "description")
     private String description;
 
 }
