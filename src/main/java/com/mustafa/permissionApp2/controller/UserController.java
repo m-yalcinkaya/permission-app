@@ -1,5 +1,6 @@
 package com.mustafa.permissionApp2.controller;
 
+import com.mustafa.permissionApp2.dto.CreateUserRequest;
 import com.mustafa.permissionApp2.jpa.entities.User;
 import com.mustafa.permissionApp2.services.user.IUserService;
 import lombok.AllArgsConstructor;
@@ -14,18 +15,13 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.util.List;
 
 @RestController
-@RequestMapping()
+@RequestMapping("/users")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 @NoArgsConstructor
 public class UserController {
 
     private IUserService userService;
 
-    @PostMapping("users/api/add")
-    public RedirectView addUser(@ModelAttribute User userDto) {
-        userService.addUser(userDto);
-        return new RedirectView("/viewUsers");
-    }
 
     @DeleteMapping("/users/api/delete")
     public ResponseEntity<Void> deleteUser(User userDto) {
@@ -39,15 +35,6 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("users/api/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable int id) {
-        User user = userService.getUser(id);
-        if (user != null) {
-            return ResponseEntity.ok(user);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
 
     @GetMapping("/viewUsers")
     public ModelAndView viewAllUsers() {

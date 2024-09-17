@@ -16,7 +16,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 
 @RestController
-@RequestMapping()
+@RequestMapping("/requests")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 @NoArgsConstructor
 public class LeaveRequestController {

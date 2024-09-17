@@ -1,7 +1,7 @@
 package com.mustafa.permissionApp2.services.leaverequest;
 
 import com.mustafa.permissionApp2.jpa.entities.User;
-import com.mustafa.permissionApp2.jpa.repositories.ILeaveRequestDao;
+import com.mustafa.permissionApp2.jpa.repositories.LeaveRepository;
 import com.mustafa.permissionApp2.jpa.entities.LeaveRequest;
 import com.mustafa.permissionApp2.services.user.IUserService;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ public class LeaveRequestServiceImpl implements ILeaveRequestService{
 
 
     private IUserService userService;
-    private ILeaveRequestDao leaveRequestService;
+    private LeaveRepository leaveRequestService;
 
     @Override
     public void cancelRequest(int id) {
@@ -42,10 +42,10 @@ public class LeaveRequestServiceImpl implements ILeaveRequestService{
         for(LeaveRequest leaveRequest : leaveRequestDtos){
             User user = userService.getUser(leaveRequest.getUserId());
             userNames.put(leaveRequest.getId(), user +" "+ user.getSurname());
-            userEmails.put(leaveRequest.getId(), user.getEmail());
+            userEmails.put(leaveRequest.getId(), user.getUsername());
             String status = leaveRequest.getStatus() == 1 ? "Pending" : leaveRequest.getStatus() == 2 ? "Approved" : leaveRequest.getStatus() == 3 ? "Rejected" : "Canceled";
             statusValues.put(leaveRequest.getId(), status);
-            if(user.getRole() == 1)
+            if(user.getAuthorities().equals("ROLE_ADMIN"))
                 userRoles.put(leaveRequest.getId(), "Admin");
             else
                 userRoles.put(leaveRequest.getId(), "Staff");
