@@ -36,18 +36,30 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http
+        http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(x -> x
-                        .requestMatchers("/welcome/**","/auth/addNewUser/**", "/auth/generateToken/**").permitAll()
-                        .requestMatchers("/users/**").hasRole("USER")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
+                .authorizeHttpRequests(authorizeRequests ->
+                        authorizeRequests
+                                .requestMatchers("/login?error=true/**","/welcome/**", "/auth/addNewUser/**", "/auth/generateToken/**").permitAll()
+                                .requestMatchers("/users/**").hasRole("USER")
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .anyRequest().authenticated()
                 )
-                .sessionManagement(x -> x.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .formLogin(formLogin ->
+                        formLogin
+                                .loginPage("/login")  // Login form URL
+                                .permitAll()
+                                .defaultSuccessUrl("/home", true)  // Redirect after successful login
+                                .failureUrl("/login?error=true")
+                )
+                .sessionManagement(sessionManagement ->
+                        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
                 .authenticationProvider(authenticationProvider())
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
+
+        return http.build();
     }
 
 
@@ -64,4 +76,5 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
+
 }

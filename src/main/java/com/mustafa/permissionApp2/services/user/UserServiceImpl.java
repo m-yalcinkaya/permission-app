@@ -35,9 +35,14 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
     }
 
 
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findByUsername(username);
-        return user.orElseThrow(EntityNotFoundException::new);
+        // Kullanıcıyı veritabanında bulmaya çalış
+        UserDetails user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+
+        // Kullanıcıyı UserDetails olarak döndür
+        return user;
     }
 
     @Override
@@ -62,6 +67,24 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 
         return userRepository.save(user);
     }
+
+    // UserServiceImpl sınıfına eklenmesi gereken metot
+    public boolean authenticateUser(String email, String password) {
+        // Kullanıcıyı email'e göre bul
+        Optional<User> userOptional = userRepository.findByUsername(email);
+
+        // Eğer kullanıcı bulunursa
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+
+            // Şifreyi doğrulamak için BCryptPasswordEncoder'ın matches yöntemini kullan
+            return bCryptPasswordEncoder.matches(password, user.getPassword());
+        }
+
+        // Kullanıcı bulunamadıysa false döndür
+        return false;
+    }
+
 
     @Override
     public void deleteUser(int id) {
